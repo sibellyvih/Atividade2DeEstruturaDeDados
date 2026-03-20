@@ -17,7 +17,7 @@ void main() {
     pilhaSimples.desempilhar();
     pilhaSimples.exibir();
 
-    System.out.println("\n-----EMPILHANDO VÁRIOS-----");
+    System.out.println("\n-----EMPILHANDO VÁRIOS ELEMENTOS-----");
     pilhaSimples.empilharVarios(new String[]{"D", "E", "F"});
     pilhaSimples.exibir();
 
