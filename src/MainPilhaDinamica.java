@@ -2,7 +2,7 @@ public class MainPilhaDinamica {
     static void main() {
         PilhaDinamica pilhaDinamica = new PilhaDinamica();
 
-        System.out.println("PILHA SIMPLES");
+        System.out.println("PILHA DINÂMICA");
 
         System.out.println("\n-----EMPILHANDO UNITARIAMENTE-----");
         pilhaDinamica.empilhar("A");

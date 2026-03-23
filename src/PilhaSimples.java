@@ -1,5 +1,3 @@
-import javax.swing.*;
-
 public class PilhaSimples implements PilhaOperacoes {
     String[] pilha;
 
@@ -20,7 +18,7 @@ public class PilhaSimples implements PilhaOperacoes {
                 return i;
             }
         }
-        return i;
+        return -1;
     }
 
     private boolean estaVazio() {
@@ -32,35 +30,38 @@ public class PilhaSimples implements PilhaOperacoes {
         return true;
     }
 
+    public int calcularQntAtual() {
+        int quantidadeAtualTotal = 0;
+        for (int i = 0; i < pilha.length; i++) {
+            if (pilha[i] != null) {
+                quantidadeAtualTotal++;
+            }
+        }
+        return quantidadeAtualTotal;
+    }
+
     public PilhaSimples(int tamanho) {
         this.pilha = new String[tamanho];
     }
 
     @Override
     public int empilhar(String elementoInserido) {
-        int quantidadeAtualTotal = 0;
 
-        if (!estaCheia()){
+        if (!estaCheia()) {
             pilha[encontrarPosicaoVazia()] = elementoInserido;
-            System.out.println("Elemento "+ elementoInserido +" adicionado com sucesso!");
-            for (int i = 0; i < pilha.length; i++){
-                if (pilha[i] != null){
-                    quantidadeAtualTotal++;
-                }
-            }
+            System.out.println("Elemento " + elementoInserido + " adicionado com sucesso!");
         } else {
             System.out.println("Pilha cheia! Não é possível inserir.");
         }
 
-        System.out.println("Quantidade total de elementos atualizada: " + quantidadeAtualTotal);
-        return quantidadeAtualTotal;
+        System.out.println("Quantidade total de elementos atualizada: " + calcularQntAtual());
+        return calcularQntAtual();
     }
 
     @Override
     public int desempilhar() {
-        int quantidadeAtualTotal = 0;
 
-        System.out.println("Desempilhando um elemento da fila...");
+        System.out.println("Desempilhando um elemento da pilha...");
         if (!estaVazio()) {
             for (int i = pilha.length - 1; i >= 0; i--) {
                 if (pilha[i] != null) {
@@ -71,19 +72,15 @@ public class PilhaSimples implements PilhaOperacoes {
         } else {
             System.out.println("Pilha está vazia!");
         }
-        for (int i = 0; i < pilha.length; i++) {
-            if (pilha[i] != null) {
-                quantidadeAtualTotal++;
-            }
-        }
-        System.out.println("Quantidade total de elementos atualizada: " + quantidadeAtualTotal);
-        return quantidadeAtualTotal;
+
+        System.out.println("Quantidade total de elementos atualizada: " + calcularQntAtual());
+        return calcularQntAtual();
     }
 
     @Override
     public void exibir() {
         System.out.println("\nExibindo pilha estática: ");
-        for (int i = pilha.length-1; i >= 0; i--){
+        for (int i = pilha.length - 1; i >= 0; i--) {
             System.out.println("         " + pilha[i]);
         }
     }
@@ -92,47 +89,40 @@ public class PilhaSimples implements PilhaOperacoes {
     public int empilharVarios(String[] elementos) {
         int qntElementosEmpilhados = 0;
 
-        if (!estaCheia()){
-            for (int i = 0; i < elementos.length; i++){
+        for (int i = 0; i < elementos.length; i++) {
+            if (!estaCheia()) {
                 pilha[encontrarPosicaoVazia()] = elementos[i];
-                System.out.println("Elemento "+ elementos[i] + " adicionado com sucesso!");
+                System.out.println("Elemento " + elementos[i] + " adicionado ao topo com sucesso!");
                 qntElementosEmpilhados++;
             }
-        } else {
-            System.out.println("Não é possível empilhar elementos!");
         }
-
         System.out.println("Foram empilhados " + qntElementosEmpilhados + " elementos.");
         return qntElementosEmpilhados;
     }
 
-    @Override
-    public int desempilharVarios(int qntDeElementosDesempilhados) {
-        int quantidadeAtualTotal = 0;
+        @Override
+        public int desempilharVarios (int qntDeElementosDesempilhados){
 
-        for (int i = 0; i < pilha.length; i++){
-            if (pilha[i] != null){
-                quantidadeAtualTotal++;
-            }
-        }
-
-        if (!estaVazio()){
-            if (qntDeElementosDesempilhados > 0 && qntDeElementosDesempilhados < quantidadeAtualTotal){
-                System.out.println("Desempilhando " + qntDeElementosDesempilhados + " elemento(s).");
-                for (int i = pilha.length - 1; i >= 0; i--) {
-                    if (pilha[i] != null) {
-                        System.out.println("Desempilhando "+ pilha[i] +" da pilha...");
-                        pilha[i] = null;
-                        qntDeElementosDesempilhados--;
-                        if (qntDeElementosDesempilhados <= 0){
-                            return quantidadeAtualTotal;
+            if (!estaVazio()) {
+                if (qntDeElementosDesempilhados > 0 && qntDeElementosDesempilhados <= calcularQntAtual()) {
+                    System.out.println("Desempilhando " + qntDeElementosDesempilhados + " elemento(s).");
+                    for (int i = pilha.length - 1; i >= 0; i--) {
+                        if (pilha[i] != null) {
+                            System.out.println("Desempilhando " + pilha[i] + " da pilha...");
+                            pilha[i] = null;
+                            qntDeElementosDesempilhados--;
+                            if (qntDeElementosDesempilhados <= 0) {
+                                break;
+                            }
                         }
                     }
+                } else {
+                    System.out.println("Quantidade inválida!");
                 }
-            } else {
-                System.out.println("Quantidade inválida!");
             }
-        }
-        return quantidadeAtualTotal;
+
+            System.out.println("Quantidade total de elementos atualizada: " + calcularQntAtual());
+
+        return calcularQntAtual();
     }
 }
